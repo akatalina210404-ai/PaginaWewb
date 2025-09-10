@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráficas Estratégicas - Zonas WiFi Risaralda</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Estilos específicos para gráficos */
+    .chart-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+      margin: 15px 0;
+    }
+    .chart-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      height: 100%;
+      transition: all 0.3s ease;
+      margin-bottom: 25px;
+    }
+    .chart-card:hover {
+      transform: translateY(-5px);
+    }
+    .chart-footer {
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .stats-section {
+      background: linear-gradient(135deg, #3498db, #27ae60);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 40px;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+    .chart-controls {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    /* Asegurar que los canvas sean visibles */
+    canvas {
+      display: block;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <h1><i class="fas fa-chart-bar"></i> Gráficas Estratégicas</h1>
+    <p class="lead">Visualización de datos sobre las zonas WiFi gratuitas en Risaralda</p>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 sidebar">
+        <h4 class="text-center mb-4"><i class="fas fa-compass"></i> Navegación</h4>
+        <a href="index.html">
+          <i class="fas fa-home"></i> Introducción
+        </a>
+        <a href="municipios.html">
+          <i class="fas fa-map-marker-alt"></i> Zonas WiFi por Municipios
+        </a>
+        <a href="graficas.html" class="active">
+          <i class="fas fa-chart-bar"></i> Gráficas Estratégicas
+        </a>
+
+        <div class="team-section mt-5">
+          <h5><i class="fas fa-users"></i> Integrantes</h5>
+          <p>JOSE WILMER PERDOMO<br>ANGELA KATALINA GARCIA</p>
+        </div>
+      </div>
+
+      <!-- Contenido -->
+      <div class="col-md-9 col-lg-10 content">
+        <div class="hero-section">
+          <div class="hero-content">
+            <h2 class="section-title">Análisis Visual de Datos</h2>
+            <p class="intro-text">
+              Explora las estadísticas y distribución de las zonas WiFi gratuitas en el departamento de Risaralda a través de estas visualizaciones interactivas.
+            </p>
+
+            <!-- Gráficas -->
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="chart-card">
+                  <h4><i class="fas fa-chart-bar"></i> Zonas WiFi por Municipio</h4>
+                  <div class="chart-container">
+                    <canvas id="municipio-chart"></canvas>
+                  </div>
+                  <div class="chart-footer">
+                    <p>Cantidad total de zonas WiFi por municipio</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="chart-card">
+                  <h4><i class="fas fa-chart-pie"></i> Distribución por Tipo de Zona</h4>
+                  <div class="chart-container">
+                    <canvas id="zona-chart"></canvas>
+                  </div>
+                  <div class="chart-footer">
+                    <p>Proporción entre zonas urbanas y rurales</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="chart-card">
+                  <h4><i class="fas fa-network-wired"></i> Tecnologías de Enlace</h4>
+                  <div class="chart-container">
+                    <canvas id="tecnologia-chart"></canvas>
+                  </div>
+                  <div class="chart-footer">
+                    <p>Tipos de tecnología utilizada para las conexiones</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="chart-card">
+                  <h4><i class="fas fa-map-marked-alt"></i> Distribución Geográfica</h4>
+                  <div class="chart-container">
+                    <canvas id="geografia-chart"></canvas>
+                  </div>
+                  <div class="chart-footer">
+                    <p>Cantidad de zonas WiFi por región</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resumen estadístico -->
+            <div class="stats-section mt-5">
+              <h3><i class="fas fa-chart-line"></i> Resumen Estadístico</h3>
+              <div class="row" id="stats-container">
+                <div class="col-md-4">
+                  <div class="stat-card">
+                    <p class="stat-value">14</p>
+                    <p class="stat-label">Municipios con cobertura</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-card">
+                    <p class="stat-value">100</p>
+                    <p class="stat-label">Total de zonas WiFi</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-card">
+                    <p class="stat-value">Pereira</p>
+                    <p class="stat-label">Municipio con más zonas (23)</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-card">
+                    <p class="stat-value">65%</p>
+                    <p class="stat-label">Zonas en áreas urbanas</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-card">
+                    <p class="stat-value">Radio enlace</p>
+                    <p class="stat-label">Tecnología principal</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-card">
+                    <p class="stat-value">20 MG</p>
+                    <p class="stat-label">Velocidad promedio</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p><i class="fas fa-copyright"></i> 2025 - Zonas WiFi Gratuitas Risaralda | Todos los derechos reservados</p>
+  </footer>
+
+  <!-- Cargar Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Script para inicializar gráficos -->
+  <script>
+    // Datos de ejemplo
+    const datosMunicipios = {
+      "Pereira": 23,
+      "Dosquebradas": 18,
+      "Santa Rosa de Cabal": 12,
+      "La Virginia": 9,
+      "Marsella": 7,
+      "Quinchía": 6,
+      "Santuario": 6,
+      "Belén de Umbría": 5,
+      "Pueblo Rico": 4,
+      "Mistrató": 4,
+      "Guática": 4,
+      "Apía": 4,
+      "Balboa": 3
+    };
+
+    // Esperar a que la página cargue completamente
+    document.addEventListener('DOMContentLoaded', function() {
+      // Pequeña pausa para asegurar que todo esté listo
+      setTimeout(initCharts, 100);
+    });
+
+    function initCharts() {
+      console.log("Inicializando gráficos...");
+      
+      // 1. Gráfico de municipios (barras)
+      const ctxMunicipio = document.getElementById('municipio-chart');
+      if (ctxMunicipio) {
+        const sortedData = Object.entries(datosMunicipios).sort((a, b) => b[1] - a[1]);
+        const labels = sortedData.map(item => item[0]);
+        const data = sortedData.map(item => item[1]);
+        
+        new Chart(ctxMunicipio, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Zonas WiFi',
+              data: data,
+              backgroundColor: 'rgba(52, 152, 219, 0.7)',
+              borderColor: 'rgba(52, 152, 219, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              title: { display: true, text: 'Zonas WiFi por Municipio' }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Cantidad de zonas' }
+              },
+              x: {
+                title: { display: true, text: 'Municipios' }
+              }
+            }
+          }
+        });
+        console.log("Gráfico de municipios creado");
+      } else {
+        console.error("No se encontró el elemento municipio-chart");
+      }
+
+      // 2. Gráfico de tipos de zona (dona)
+      const ctxZona = document.getElementById('zona-chart');
+      if (ctxZona) {
+        new Chart(ctxZona, {
+          type: 'doughnut',
+          data: {
+            labels: ['URBANA', 'RURAL'],
+            datasets: [{
+              data: [65, 35],
+              backgroundColor: [
+                'rgba(52, 152, 219, 0.7)',
+                'rgba(46, 204, 113, 0.7)'
+              ],
+              borderColor: [
+                'rgba(52, 152, 219, 1)',
+                'rgba(46, 204, 113, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom' }
+            }
+          }
+        });
+        console.log("Gráfico de zonas creado");
+      }
+
+      // 3. Gráfico de tecnologías (polar area)
+      const ctxTecnologia = document.getElementById('tecnologia-chart');
+      if (ctxTecnologia) {
+        new Chart(ctxTecnologia, {
+          type: 'polarArea',
+          data: {
+            labels: ['Radio enlace', 'Fibra', 'Satelital'],
+            datasets: [{
+              data: [80, 15, 5],
+              backgroundColor: [
+                'rgba(52, 152, 219, 0.7)',
+                'rgba(46, 204, 113, 0.7)',
+                'rgba(241, 196, 15, 0.7)'
+              ],
+              borderColor: [
+                'rgba(52, 152, 219, 1)',
+                'rgba(46, 204, 113, 1)',
+                'rgba(241, 196, 15, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom' }
+            }
+          }
+        });
+        console.log("Gráfico de tecnologías creado");
+      }
+
+      // 4. Gráfico de distribución geográfica (radar)
+      const ctxGeografia = document.getElementById('geografia-chart');
+      if (ctxGeografia) {
+        const labels = Object.keys(datosMunicipios);
+        const data = Object.values(datosMunicipios);
+        
+        new Chart(ctxGeografia, {
+          type: 'radar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Zonas WiFi',
+              data: data,
+              backgroundColor: 'rgba(52, 152, 219, 0.2)',
+              borderColor: 'rgba(52, 152, 219, 1)',
+              borderWidth: 2,
+              pointBackgroundColor: 'rgba(52, 152, 219, 1)'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              r: {
+                beginAtZero: true,
+                ticks: { stepSize: 5 }
+              }
+            }
+          }
+        });
+        console.log("Gráfico geográfico creado");
+      }
+
+      console.log("Todos los gráficos inicializados");
+    }
+  </script>
+</body>
+</html>

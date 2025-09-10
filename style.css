@@ -1,0 +1,369 @@
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+  --light-bg: #f8f9fa;
+  --dark-text: #2c3e50;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.95), rgba(44, 62, 80, 0.95));
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+}
+.header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+.header .lead {
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
+/* Sidebar */
+.sidebar {
+  background: linear-gradient(180deg, var(--secondary-color), #34495e);
+  color: white;
+  min-height: 100vh;
+  padding-top: 20px;
+}
+.sidebar a {
+  color: #ecf0f1;
+  padding: 15px 20px;
+  text-decoration: none;
+  display: block;
+  transition: var(--transition);
+}
+.sidebar a.active {
+  background: rgba(52, 152, 219, 0.3);
+  border-left: 4px solid var(--primary-color);
+}
+.sidebar a:hover {
+  background: rgba(52, 152, 219, 0.2);
+  transform: translateX(5px);
+}
+
+/* Content */
+.content {
+  padding: 20px;
+  background: var(--light-bg);
+}
+.hero-section {
+  background: white;
+  margin: 20px;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.hero-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+.section-title {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+}
+.section-subtitle {
+  font-size: 2rem;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: var(--dark-text);
+}
+
+/* Importancia */
+.importance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+.importance-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: var(--transition);
+}
+.importance-card:hover {
+  transform: translateY(-5px);
+}
+.card-icon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+/* Objetivos */
+.objectives-section {
+  background: linear-gradient(135deg, var(--primary-color), var(--success-color));
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  margin-top: 40px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+  background: var(--secondary-color);
+  color: white;
+  border-radius: 10px;
+}
+
+/* Animaciones */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+/* Grid de municipios */
+.municipios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+.municipio-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: var(--transition);
+}
+.municipio-card:hover {
+  transform: translateY(-5px);
+}
+.municipio-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--primary-color);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error message */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+  text-align: center;
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  .header .lead {
+    font-size: 1rem;
+  }
+  .sidebar {
+    min-height: auto;
+  }
+}
+
+/* Estilos para la página de municipios */
+.list-view {
+  display: block !important;
+}
+
+.list-view .municipio-card {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-view .municipio-icon {
+  margin-bottom: 0;
+  margin-right: 15px;
+}
+
+.list-view .municipio-card h4 {
+  margin-right: auto;
+}
+
+#search-input {
+  border-radius: 20px;
+}
+
+#municipio-details {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+/*graficas*/
+
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+  --light-bg: #f8f9fa;
+  --dark-text: #2c3e50;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.95), rgba(44, 62, 80, 0.95));
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+}
+.header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+.header .lead {
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
+/* Sidebar */
+.sidebar {
+  background: linear-gradient(180deg, var(--secondary-color), #34495e);
+  color: white;
+  min-height: 100vh;
+  padding-top: 20px;
+}
+.sidebar a {
+  color: #ecf0f1;
+  padding: 15px 20px;
+  text-decoration: none;
+  display: block;
+  transition: var(--transition);
+}
+.sidebar a.active {
+  background: rgba(52, 152, 219, 0.3);
+  border-left: 4px solid var(--primary-color);
+}
+.sidebar a:hover {
+  background: rgba(52, 152, 219, 0.2);
+  transform: translateX(5px);
+}
+
+/* Content */
+.content {
+  padding: 20px;
+  background: var(--light-bg);
+}
+.hero-section {
+  background: white;
+  margin: 20px;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.section-title {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+}
+
+/* Gráficas */
+.chart-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: var(--transition);
+}
+.chart-container:hover {
+  transform: scale(1.02);
+}
+.chart-container h4 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+}
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Animaciones */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+  background: var(--secondary-color);
+  color: white;
+  border-radius: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  .header .lead {
+    font-size: 1rem;
+  }
+  .sidebar {
+    min-height: auto;
+  }
+  .chart-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zonas WiFi por Municipios - Risaralda</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+  <!-- Estilos mínimos para las opciones nuevas (puedes moverlos a style.css) -->
+  <style>
+    .toolbar { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin: 10px 0 20px; }
+    .toolbar .form-control { max-width: 360px; }
+    .form-switch .form-check-input { cursor: pointer; }
+    .list-view { display:block !important; }
+    .list-view .municipio-card { display:flex; align-items:center; text-align:left; gap:16px; }
+    .list-view .municipio-icon { font-size:1.6rem; margin:0; }
+    #loading-spinner { display:none; }
+    #error-message { display:none; border:1px dashed #dc3545; background:#fff5f5; padding:16px; border-radius:10px; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <h1><i class="fas fa-map-marker-alt"></i> Zonas WiFi por Municipios</h1>
+    <p class="lead">Distribución de las zonas WiFi gratuitas en Risaralda</p>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 sidebar">
+        <h4 class="text-center mb-4"><i class="fas fa-compass"></i> Navegación</h4>
+        <a href="index.html"><i class="fas fa-home"></i> Introducción</a>
+        <a href="municipios.html" class="active"><i class="fas fa-map-marker-alt"></i> Municipios</a>
+        <a href="graficas.html"><i class="fas fa-chart-bar"></i> Gráficas</a>
+
+        <div class="team-section mt-5">
+          <h5><i class="fas fa-users"></i> Integrantes</h5>
+          <p>JOSE WILMER PERDOMO<br>ANGELA KATALINA GARCIA</p>
+        </div>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="col-md-9 col-lg-10 content">
+        <h2 class="section-title fade-in">Municipios de Risaralda</h2>
+        <p class="intro-text fade-in">
+          Consulta los municipios del departamento y el número de Zonas WiFi registradas. Usa el buscador o cambia la vista.
+        </p>
+
+        <!-- Herramientas: búsqueda + toggle vista -->
+        <div class="toolbar fade-in">
+          <div class="input-group" style="max-width:420px;">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input id="search-input" class="form-control" type="text" placeholder="Buscar municipio..."/>
+          </div>
+
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="toggle-view" checked/>
+            <label class="form-check-label" for="toggle-view">
+              <i class="fas fa-grip"></i> Vista de tarjetas
+            </label>
+          </div>
+
+          <!-- Spinner de carga -->
+          <div id="loading-spinner" class="ms-auto">
+            <div class="spinner-border text-primary" role="status" style="width:1.6rem;height:1.6rem;">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mensaje de error -->
+        <div id="error-message" class="fade-in">
+          <!-- Se llena desde JS -->
+        </div>
+
+        <!-- Contenedor de municipios -->
+        <div id="municipios-container" class="municipios-grid fade-in"></div>
+
+        <!-- Sección de detalles -->
+        <div id="municipio-details" style="display:none; margin-top:30px;" class="fade-in">
+          <h3 id="detail-title"></h3>
+          <div id="detail-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2023 - Zonas WiFi Gratuitas Risaralda</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
